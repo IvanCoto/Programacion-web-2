@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns: th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>TechShop</title>
+        <meta charset="UTF-8"/>
+        <link href="/css/menu.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <header th:replace="layaout/plantilla :: header"></header>
+        <div class="contenido">
+        <h2 th:text="#{articulo.datos}">Datos de articulo</h2>
+        <a th:href="@{/articulo/listado}" th:text="#{accion.regresar}">Regresar</a>
+        <br/>
+        <form th:action="@{/articulo/guardar}"
+              method="post"
+              th:object="${articulo}">
+            
+            <input type="hidden" name="idArticulo" th:field="*{idarticulo}">
+                
+            <label for="categoria" th:text="#{articulo.categoria}">Descripcion:</label>
+            <select th: field="*{idCategoria}">
+                <option th:each="categoria: ${categorias}"
+                        th:value="${categoria.idCategoria}"
+                        th:text="${categoria.descripcion}"/>
+            </select>
+            <br>
+            <label for="descripcion" th:text="#{articulo.descripcion}">Descripcion:</label>
+            <input type="text" name="descripcion" th:field="*{descripcion}">
+            <br>
+            <label for="existencias" th:text="#{articulo.existencias}">Existencias:</label>
+            <input type="text" name="existencias" th:field="*{existencias}">
+            <br>
+            <label for="detalle" th:text="#{articulo.detalle}">Detalle:</label>
+            <input type="text" name="detalle" th:field="*{detalle}">
+            <br>
+            <label for="precio" th:text="#{articulo.precio}">Precio:</label>
+            <input type="number" name="precio" th:field="*{precio}">
+            <br>
+            <label for="activo" th:text="#{articulo.activo}">Activo:</label>
+            <input type="checkbox" name="activo" th:field="*{activo}"> 
+            <br>
+            <br>
+                <button type="submit" name="guardar" th:text="#{accion.guardar}"></button>
+     
+        </form>
+        </div>
+        <footer th:replace="layaout/plantilla :: footer"></footer>
+    </body>
+</html>
